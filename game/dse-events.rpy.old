@@ -10,7 +10,7 @@ init:
     $ sg = Character('Sporty Girl', color=(255, 255, 192, 255))
     $ bg = Character('Both Girls')
     $ narrator = Character(' ')
-    
+
 
 init:
     # First up, we define some simple events for the various actions, that
