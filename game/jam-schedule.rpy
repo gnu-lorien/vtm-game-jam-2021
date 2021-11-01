@@ -29,6 +29,11 @@ init python:
     #register_stat("Resolve", "resolve", 10, 100)
     #register_stat("Relaxation", "relaxation", hidden=True)
 
+    register_stat("Grooming Choleric", "grooming_choleric_skill", 10, 100, hidden=True)
+    register_stat("Grooming Melancholy", "grooming_melancholy_skill", 10, 100, hidden=True)
+    register_stat("Grooming Phlegmatic", "grooming_phlegmatic_skill", 10, 100, hidden=True)
+    register_stat("Grooming Sanguine", "grooming_sanguine_skill", 10, 100, hidden=True)
+
     # Circulatory System stats
     register_stat("Choleric", "choleric", 0, 100)
     register_stat("Melancholy", "melancholy", 0, 100)

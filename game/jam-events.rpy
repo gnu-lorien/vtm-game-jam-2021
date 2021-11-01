@@ -5,6 +5,8 @@ init:
 
 
 init:
+
+    # Hunting events
     $ event("choleric_acute", "act == 'hunt_choleric'", event.choose_one('choleric'), priority=200)
     $ event("choleric_intense", "act == 'hunt_choleric'", event.choose_one('choleric', group_count=5), priority=200)
     $ event("choleric_fleeting", "act == 'hunt_choleric'", event.choose_one('choleric', group_count=20), priority=200)
@@ -17,6 +19,11 @@ init:
     $ event("sanguine_acute", "act == 'hunt_sanguine'", event.choose_one('sanguine'), priority=200)
     $ event("sanguine_intense", "act == 'hunt_sanguine'", event.choose_one('sanguine', group_count=5), priority=200)
     $ event("sanguine_fleeting", "act == 'hunt_sanguine'", event.choose_one('sanguine', group_count=20), priority=200)
+
+    $ event("grooming_choleric", "act == 'groom_choleric'", event.solo(), priority=200)
+    $ event("grooming_melancholy", "act == 'groom_melancholy'", event.solo(), priority=200)
+    $ event("grooming_phlegmatic", "act == 'groom_phlegmatic'", event.solo(), priority=200)
+    $ event("grooming_sanguine", "act == 'groom_sanguine'", event.solo(), priority=200)
 
     # First up, we define some simple events for the various actions, that
     # are run only if no higher-priority event is about to occur.
@@ -168,6 +175,25 @@ label sanguine_fleeting:
     $ sanguine += 1
     return
 
+label grooming_choleric:
+    "I identify and groom the choleric people"
+    $ choleric += grooming_choleric_skill
+    return
+
+label grooming_melancholy:
+    "I identify and groom the melancholy people"
+    $ melancholy += grooming_melancholy_skill
+    return
+
+label grooming_phlegmatic:
+    "I identify and groom the phlegmatic people"
+    $ phlegmatic += grooming_phlegmatic_skill
+    return
+
+label grooming_sanguine:
+    "I identify and groom the sanguine people"
+    $ sanguine += grooming_sanguine_skill
+    return
 
 label class:
 
