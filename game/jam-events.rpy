@@ -2,10 +2,10 @@
 init:
     $ t = Character('Thrall')
     $ d = Character('Domitor')
-
+    $ raver = Character('Raver')
+    $ socialite = Character('Socialite')
 
 init:
-
     # Hunting events
     $ event("choleric_acute", "act == 'hunt_choleric'", event.choose_one('choleric'), priority=200)
     $ event("choleric_intense", "act == 'hunt_choleric'", event.choose_one('choleric', group_count=5), priority=200)
@@ -20,10 +20,16 @@ init:
     $ event("sanguine_intense", "act == 'hunt_sanguine'", event.choose_one('sanguine', group_count=5), priority=200)
     $ event("sanguine_fleeting", "act == 'hunt_sanguine'", event.choose_one('sanguine', group_count=20), priority=200)
 
+    # Grooming Planner
     $ event("grooming_choleric", "act == 'groom_choleric'", event.solo(), priority=200)
     $ event("grooming_melancholy", "act == 'groom_melancholy'", event.solo(), priority=200)
     $ event("grooming_phlegmatic", "act == 'groom_phlegmatic'", event.solo(), priority=200)
     $ event("grooming_sanguine", "act == 'groom_sanguine'", event.solo(), priority=200)
+
+    # Reporting Planner
+    #$ event("rumor_nothing", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
+    $ event("rumor_art_gallery", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
+    $ event("rumor_rave", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
 
     # First up, we define some simple events for the various actions, that
     # are run only if no higher-priority event is about to occur.
@@ -113,7 +119,6 @@ init:
     $ event('both_confess', 'act == "class"',
             event.depends("dontsee"), event.depends("cookies"),
             event.once(), priority = 50)
-     
 
 label choleric_acute:
     "Found choleric acute"
@@ -193,6 +198,27 @@ label grooming_phlegmatic:
 label grooming_sanguine:
     "I identify and groom the sanguine people"
     $ sanguine += grooming_sanguine_skill
+    return
+
+label rumor_nothing:
+    "I listen for the whispers of the night and hear nothing in return."
+    $ next_rumor = None
+    return
+
+label rumor_art_gallery:
+    "I seek out an artiste who knows the scene."
+    socialite "A new gallery is coming through town."
+    t "Why don't you get me in and we can meet up after?"
+    socialite "I'll get you in, but I've got better plans for my night."
+    $ next_rumor = 'art_gallery'
+    return
+
+label rumor_rave:
+    "I come across a raver dressed to party."
+    raver "Just one more night and we get to disappear into the sound."
+    t "Is it worth it for me to show up?"
+    raver "Not if you want to miss the best party this town's seen in a decade."
+    $ next_rumor = 'rave'
     return
 
 label class:

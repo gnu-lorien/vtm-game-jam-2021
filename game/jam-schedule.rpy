@@ -42,12 +42,16 @@ init python:
 
     # Domitor's opinion of you
     register_stat("Regnant Satisfaction", "satisfaction", 10, 100, hidden=True)
+
     # Hunting for new Resonance sources
     dp_period("Hunting", "hunting_act")
     dp_choice("Choleric", "hunt_choleric")
     dp_choice("Melancholy", "hunt_melancholy")
     dp_choice("Phlegmatic", "hunt_phlegmatic")
     dp_choice("Sanguine", "hunt_sanguine")
+    dp_choice("No Special Events", "hunt_no_special", show="next_rumor is None", enable="False")
+    dp_choice("Art Gallery", "hunt_art_gallery", show="next_rumor == 'art_gallery'", enable="True")
+    dp_choice("Rave", "hunt_rave", show="next_rumor == 'rave'", enable="True")
 
     # Improving and maintaining current resonance sources
     # Fleeting, Intense, and acute.
@@ -61,6 +65,7 @@ init python:
     # Reporting your progress and maintaining your relationship with your Domitor
     dp_period("Reporting", "reporting_act")
     dp_choice("None", "report_none")
+    dp_choice("Ear to the Streets", "report_rumors")
     
 # This is the entry point into the game.
 label start:
@@ -68,6 +73,7 @@ label start:
     # Initialize the default values of some of the variables used in
     # the game.
     $ day = 0
+    $ next_rumor = None
 
     # Show a default background.
     scene black
