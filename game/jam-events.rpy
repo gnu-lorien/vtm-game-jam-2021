@@ -125,62 +125,62 @@ init:
 
 label choleric_acute:
     "Found choleric acute"
-    $ choleric += 20
+    $ choleric += ACUTE_VALUE
     return
 
 label choleric_intense:
     "Found intense"
-    $ choleric += 5
+    $ choleric += INTENSE_VALUE
     return
 
 label choleric_fleeting:
     "Found choleric fleeting"
-    $ choleric += 1
+    $ choleric += FLEETING_VALUE
     return
 
 label melancholy_acute:
     "Found melancholy acute"
-    $ melancholy += 20
+    $ melancholy += ACUTE_VALUE
     return
 
 label melancholy_intense:
     "Found intense"
-    $ melancholy += 5
+    $ melancholy += INTENSE_VALUE
     return
 
 label melancholy_fleeting:
     "Found melancholy fleeting"
-    $ melancholy += 1
+    $ melancholy += FLEETING_VALUE
     return
 
 label phlegmatic_acute:
     "Found phlegmatic acute"
-    $ phlegmatic += 20
+    $ phlegmatic += ACUTE_VALUE
     return
 
 label phlegmatic_intense:
     "Found intense"
-    $ phlegmatic += 5
+    $ phlegmatic += INTENSE_VALUE
     return
 
 label phlegmatic_fleeting:
     "Found phlegmatic fleeting"
-    $ phlegmatic += 1
+    $ phlegmatic += FLEETING_VALUE
     return
 
 label sanguine_acute:
     "Found sanguine acute"
-    $ sanguine += 20
+    $ sanguine += ACUTE_VALUE
     return
 
 label sanguine_intense:
     "Found intense"
-    $ sanguine += 5
+    $ sanguine += INTENSE_VALUE
     return
 
 label sanguine_fleeting:
     "Found sanguine fleeting"
-    $ sanguine += 1
+    $ sanguine += FLEETING_VALUE
     return
 
 label grooming_choleric:

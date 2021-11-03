@@ -17,6 +17,10 @@
 # Set up a default schedule.
 init python:
 
+    FLEETING_VALUE = 1
+    INTENSE_VALUE = 5
+    ACUTE_VALUE = 20
+
     # Core sheets stats for the thrall you are playing as
     register_stat("Strength", "strength", 10, 100, hidden=True)
     #register_stat("Dexterity", "dexterity", 10, 100)
