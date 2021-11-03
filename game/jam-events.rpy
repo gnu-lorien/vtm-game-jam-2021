@@ -27,7 +27,10 @@ init:
     $ event("grooming_sanguine", "act == 'groom_sanguine'", event.solo(), priority=200)
 
     # Reporting Planner
-    #$ event("rumor_nothing", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
+    # For rumored events start with the events from Broken Social Scenes
+    # Rather than just doubling the odds of Intensity just make all of the
+    # available resonances intense.
+    $ event("rumor_nothing", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
     $ event("rumor_art_gallery", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
     $ event("rumor_rave", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
 
