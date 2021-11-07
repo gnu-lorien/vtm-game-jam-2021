@@ -36,13 +36,16 @@ init:
     $ event("grooming_phlegmatic", "act == 'groom_phlegmatic'", event.solo(), priority=200)
     $ event("grooming_sanguine", "act == 'groom_sanguine'", event.solo(), priority=200)
 
-    # Reporting Planner
+    # Hitting the Streets Planner
     # For rumored events start with the events from Broken Social Scenes
     # Rather than just doubling the odds of Intensity just make all of the
     # available resonances intense.
-    $ event("rumor_nothing", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
-    $ event("rumor_art_gallery", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
-    $ event("rumor_rave", "act == 'report_rumors'", event.choose_one('base_rumors'), priority=200)
+    $ event("rumor_nothing", "act == 'streets_legwork'", event.choose_one('base_rumors'), priority=200)
+    $ event("rumor_art_gallery", "act == 'streets_legwork'", event.choose_one('base_rumors'), priority=200)
+    $ event("rumor_rave", "act == 'streets_legwork'", event.choose_one('base_rumors'), priority=200)
+
+    # Midnight and the Domitor's Desires
+    $ event("domitor_base_goal", "period == 'midnight'", event.only(), event.once())
 
     # First up, we define some simple events for the various actions, that
     # are run only if no higher-priority event is about to occur.
@@ -237,3 +240,10 @@ label rumor_rave:
     raver "Not if you want to miss the best party this town's seen in a decade."
     $ next_rumor = 'rave'
     return
+
+label domitor_base_goal:
+    d "Did I really leave you to your own devices?"
+    t "Yes ma'am."
+    d "Mistress. Don't make that mistake."
+    t "Yes mistress."
+    d "Rudderless. You must've felt lost without my guidance. Here's what I will need from you next. When you've achieved this perhaps I'll continue to bless you with my vitae."

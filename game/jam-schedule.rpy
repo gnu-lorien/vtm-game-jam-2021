@@ -67,10 +67,14 @@ init python:
     dp_choice("Phlegmatic", "groom_phlegmatic", show="phlegmatic >= 1 and phlegmatic <= 100")
     dp_choice("Sanguine", "groom_sanguine", show="sanguine >= 1 and sanguine <= 100")
 
-    # Reporting your progress and maintaining your relationship with your Domitor
-    dp_period("Reporting", "reporting_act")
-    dp_choice("None", "report_none")
-    dp_choice("Word on the Streets", "report_rumors")
+    # Working your information sources to get intel. p 334
+    dp_period("Hitting the Streets", "streets_act")
+    dp_choice("None", "streets_none")
+    dp_choice("Legwork", "streets_legwork")
+    dp_choice("Paper Chase", "streets_paperchase")
+    dp_choice("Scrounging", "streets_scrounging")
+
+    dp_period("Midnight", "midnight_act")
     
 # This is the entry point into the game.
 label start:
@@ -79,6 +83,7 @@ label start:
     # the game.
     $ day = 0
     $ next_rumor = None
+    $ current_goal = None
     $ DEBUG_MODE = True
 
     # Show a default background.
@@ -117,43 +122,30 @@ label day:
 
     $ hunting_act = None
     $ grooming_act = None
-    $ reporting_act = None
-    $ narrator("What should I do today?", interact=False)
+    $ streets_act = None
+    # Evolve this as your feelings towards her change?
+    $ narrator("How shall I satisfy my domitor?", interact=False)
     window show
     
 
     # Now, we call the day planner, which may set the act variables
     # to new values. We call it with a list of periods that we want
     # to compute the values for.
-    call screen day_planner(["Hunting", "Grooming", "Reporting"])
+    call screen day_planner(["Hitting the Streets", "Grooming", "Hunting"])
     window auto
     
     # We process each of the three periods of the day, in turn.
-label hunting:
+label hitting_the_streets:
+    centered "Hitting the Streets"
 
-    # Tell the user what period it is.
-    centered "Hunting"
-
-    # Set these variables to appropriate values, so they can be
-    # picked up by the expression in the various events defined below. 
-    $ period = "hunting"
-    $ act = hunting_act
+    $ period = "streets"
+    $ act = streets_act
     
-    # Execute the events for the morning.
     call events_run_period
 
-    # That's it for the morning, so we fall through to the
-    # afternoon.
-
 label grooming:
-
-    # It's possible that we will be skipping the afternoon, if one
-    # of the events in the morning jumped to skip_next_period. If
-    # so, we should skip the afternoon.
     if check_skip_period():
-        jump reporting
-
-    # The rest of this is the same as for the morning.
+        jump hunting
 
     centered "Grooming"
 
@@ -162,29 +154,34 @@ label grooming:
 
     call events_run_period
 
-
-label reporting:
-    
+label hunting:
     if check_skip_period():
-        jump night
+        jump midnight
 
-    centered "Reporting"
+    centered "Hunting"
 
-    $ period = "reporting"
-    $ act = reporting_act
-    
+    $ period = "hunting"
+    $ act = hunting_act
+
     call events_run_period
 
+label midnight:
+    centered "Midnight"
 
-label night:
+    $ period = "midnight"
+    $ act = None
+
+    call events_run_period
+
+label daybreak:
 
     # This is now the end of the day, and not a period in which
     # events can be run. We put some boilerplate end-of-day text
     # in here.
 
-    centered "Night"
+    centered "Daybreak"
 
-    "My Domitor has finished with me for the night. Now I sleep."
+    "My Domitor has gone to sleep for the day. Now I can rest."
 
     # We call events_end_day to let it know that the day is done.
     call events_end_day
@@ -192,5 +189,3 @@ label night:
     # And we jump back to day to start the next day. This goes
     # on forever, until an event ends the game.
     jump day
-         
-
