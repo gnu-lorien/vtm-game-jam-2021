@@ -20,11 +20,15 @@ init:
     $ event("sanguine_intense", "act == 'hunt_sanguine_debug'", event.choose_one('sanguine', group_count=5), priority=200)
     $ event("sanguine_fleeting", "act == 'hunt_sanguine_debug'", event.choose_one('sanguine', group_count=20), priority=200)
 
-    $ event("choleric_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.3), priority=201)
-    $ event("melancholy_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.3), priority=202)
-    $ event("phlegmatic_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.2), priority=203)
-    $ event("sanguine_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.2), priority=204)
-    $ event("wandering_failed", "act == 'hunt_wander'", event.solo(), priority=205)
+    #$ event("choleric_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.3), priority=201)
+    #$ event("melancholy_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.3), priority=202)
+    #$ event("phlegmatic_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.2), priority=203)
+    #$ event("sanguine_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.2), priority=204)
+    #$ event("wandering_failed", "act == 'hunt_wander'", event.solo(), priority=205)
+    $ event("choleric_fleeting", "act == 'hunt_wander'", event.solo(), event.choose_one('wander', group_count=30), priority=200)
+    $ event("melancholy_fleeting", "act == 'hunt_wander'", event.solo(), event.choose_one('wander', group_count=30), priority=200)
+    $ event("phlegmatic_fleeting", "act == 'hunt_wander'", event.solo(), event.choose_one('wander', group_count=20), priority=200)
+    $ event("sanguine_fleeting", "act == 'hunt_wander'", event.solo(), event.choose_one('wander', group_count=20), priority=200)
 
     # Grooming Planner
     $ event("grooming_choleric", "act == 'groom_choleric'", event.solo(), priority=200)
