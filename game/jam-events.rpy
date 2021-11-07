@@ -7,18 +7,24 @@ init:
 
 init:
     # Hunting events
-    $ event("choleric_acute", "act == 'hunt_choleric'", event.choose_one('choleric'), priority=200)
-    $ event("choleric_intense", "act == 'hunt_choleric'", event.choose_one('choleric', group_count=5), priority=200)
-    $ event("choleric_fleeting", "act == 'hunt_choleric'", event.choose_one('choleric', group_count=20), priority=200)
-    $ event("melancholy_acute", "act == 'hunt_melancholy'", event.choose_one('melancholy'), priority=200)
-    $ event("melancholy_intense", "act == 'hunt_melancholy'", event.choose_one('melancholy', group_count=5), priority=200)
-    $ event("melancholy_fleeting", "act == 'hunt_melancholy'", event.choose_one('melancholy', group_count=20), priority=200)
-    $ event("phlegmatic_acute", "act == 'hunt_phlegmatic'", event.choose_one('phlegmatic'), priority=200)
-    $ event("phlegmatic_intense", "act == 'hunt_phlegmatic'", event.choose_one('phlegmatic', group_count=5), priority=200)
-    $ event("phlegmatic_fleeting", "act == 'hunt_phlegmatic'", event.choose_one('phlegmatic', group_count=20), priority=200)
-    $ event("sanguine_acute", "act == 'hunt_sanguine'", event.choose_one('sanguine'), priority=200)
-    $ event("sanguine_intense", "act == 'hunt_sanguine'", event.choose_one('sanguine', group_count=5), priority=200)
-    $ event("sanguine_fleeting", "act == 'hunt_sanguine'", event.choose_one('sanguine', group_count=20), priority=200)
+    $ event("choleric_acute", "act == 'hunt_choleric_debug'", event.choose_one('choleric'), priority=200)
+    $ event("choleric_intense", "act == 'hunt_choleric_debug'", event.choose_one('choleric', group_count=5), priority=200)
+    $ event("choleric_fleeting", "act == 'hunt_choleric_debug'", event.choose_one('choleric', group_count=20), priority=200)
+    $ event("melancholy_acute", "act == 'hunt_melancholy_debug'", event.choose_one('melancholy'), priority=200)
+    $ event("melancholy_intense", "act == 'hunt_melancholy_debug'", event.choose_one('melancholy', group_count=5), priority=200)
+    $ event("melancholy_fleeting", "act == 'hunt_melancholy_debug'", event.choose_one('melancholy', group_count=20), priority=200)
+    $ event("phlegmatic_acute", "act == 'hunt_phlegmatic_debug'", event.choose_one('phlegmatic'), priority=200)
+    $ event("phlegmatic_intense", "act == 'hunt_phlegmatic_debug'", event.choose_one('phlegmatic', group_count=5), priority=200)
+    $ event("phlegmatic_fleeting", "act == 'hunt_phlegmatic_debug'", event.choose_one('phlegmatic', group_count=20), priority=200)
+    $ event("sanguine_acute", "act == 'hunt_sanguine_debug'", event.choose_one('sanguine'), priority=200)
+    $ event("sanguine_intense", "act == 'hunt_sanguine_debug'", event.choose_one('sanguine', group_count=5), priority=200)
+    $ event("sanguine_fleeting", "act == 'hunt_sanguine_debug'", event.choose_one('sanguine', group_count=20), priority=200)
+
+    $ event("choleric_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.3), priority=201)
+    $ event("melancholy_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.3), priority=202)
+    $ event("phlegmatic_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.2), priority=203)
+    $ event("sanguine_fleeting", "act == 'hunt_wander'", event.solo(), event.random(.2), priority=204)
+    $ event("wandering_failed", "act == 'hunt_wander'", event.solo(), priority=205)
 
     # Grooming Planner
     $ event("grooming_choleric", "act == 'groom_choleric'", event.solo(), priority=200)
@@ -181,6 +187,10 @@ label sanguine_intense:
 label sanguine_fleeting:
     "Found sanguine fleeting"
     $ sanguine += FLEETING_VALUE
+    return
+
+label wandering_failed:
+    "I hunt and I hunt but nobody seems right."
     return
 
 label grooming_choleric:

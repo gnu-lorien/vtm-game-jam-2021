@@ -49,10 +49,11 @@ init python:
 
     # Hunting for new Resonance sources
     dp_period("Hunting", "hunting_act")
-    dp_choice("Choleric", "hunt_choleric")
-    dp_choice("Melancholy", "hunt_melancholy")
-    dp_choice("Phlegmatic", "hunt_phlegmatic")
-    dp_choice("Sanguine", "hunt_sanguine")
+    dp_choice("D Choleric", "hunt_choleric_debug", show="DEBUG_MODE")
+    dp_choice("D Melancholy", "hunt_melancholy_debug", show="DEBUG_MODE")
+    dp_choice("D Phlegmatic", "hunt_phlegmatic_debug", show="DEBUG_MODE")
+    dp_choice("D Sanguine", "hunt_sanguine_debug", show="DEBUG_MODE")
+    dp_choice("Wander", "hunt_wander")
     dp_choice("No Special Events", "hunt_no_special", show="next_rumor is None", enable="False")
     dp_choice("Art Gallery", "hunt_art_gallery", show="next_rumor == 'art_gallery'", enable="True")
     dp_choice("Rave", "hunt_rave", show="next_rumor == 'rave'", enable="True")
@@ -69,7 +70,7 @@ init python:
     # Reporting your progress and maintaining your relationship with your Domitor
     dp_period("Reporting", "reporting_act")
     dp_choice("None", "report_none")
-    dp_choice("Ear to the Streets", "report_rumors")
+    dp_choice("Word on the Streets", "report_rumors")
     
 # This is the entry point into the game.
 label start:
@@ -78,6 +79,7 @@ label start:
     # the game.
     $ day = 0
     $ next_rumor = None
+    $ DEBUG_MODE = True
 
     # Show a default background.
     scene black
